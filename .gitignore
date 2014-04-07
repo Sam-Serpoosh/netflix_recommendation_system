@@ -1,6 +1,9 @@
 # Mac files
 .DS_Store
 
+# Vim files
+*.swp
+
 # Dataset files
 netflix_dataset/
 sample_netflix_dataset/

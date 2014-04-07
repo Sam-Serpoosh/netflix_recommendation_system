@@ -1,8 +1,6 @@
 #!/bin/bash
 
-training_set="../../training_set/"
 user_ids="./random_sample_users"
-user_ratings_dir="../user_ratings/"
 
 function create_user_ratings_files() {
   cat $user_ids | while read user_id; do echo $user_id >> $user_ratings_dir$user_id\_ratings && get_user_ratings_for_user $user_id; done
@@ -28,4 +26,6 @@ function append_to_user_movie_ratings() {
 
 }
 
+training_set=$1
+user_ratings_dir=$2
 create_user_ratings_files
