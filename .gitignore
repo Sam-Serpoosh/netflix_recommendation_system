@@ -1,0 +1,15 @@
+# Mac files
+.DS_Store
+
+# Dataset files
+netflix_dataset/
+sample_netflix_dataset/
+netflix_recommendation_system/test_training_set/
+netflix_recommendation_system/user_ratings_old/
+netflix_recommendation_system/data_preprocessing/unique_user_ids
+netflix_recommendation_system/data_preprocessing/time_information
+
+
+# Papers and Articles
+notes/
+papers_articles/
