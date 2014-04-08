@@ -6,8 +6,11 @@
 
 # Dataset files
 netflix_dataset/
+sample_netflix_dataset/users
+sample_netflix_dataset/movie_ids
 sample_netflix_dataset/movies1000
 sample_netflix_dataset/movies2000
+sample_netflix_dataset/movies
 sample_netflix_dataset/user_ratings_1000
 sample_netflix_dataset/user_ratings_2000
 sample_netflix_dataset/user_ratings
