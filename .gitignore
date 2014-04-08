@@ -11,6 +11,7 @@ netflix_recommendation_system/test_training_set/
 netflix_recommendation_system/user_ratings_old/
 netflix_recommendation_system/data_preprocessing/unique_user_ids
 netflix_recommendation_system/data_preprocessing/time_information
+netflix_recommendation_system/data_preprocessing/random_sample_users_backup
 
 
 # Papers and Articles
