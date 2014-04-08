@@ -6,12 +6,12 @@ class RatingPredictor
   end
 
   def predict(user, movie)
-    movies = movies_rated_by_user(user)
-    users = users_ratings_for_movie(movie)
-    #users.each { |u| ratings_of_similar_movies_by_both_users(user, u) }
+    user_movie_ratings = movie_ratings_by_user(user)
+    users_ratings = users_ratings_for_movie(movie)
+    similar_users = get_similar_users_based_on(user, user_movie_ratings, users_ratings.keys)
   end
 
-  def movies_rated_by_user(user)
+  def movie_ratings_by_user(user)
     command = %Q{ tail -n+2 #{@user_ratings_dir}/#{user}_ratings }
     ratings = `#{command}`.split("\n")
     ratings = ratings.select { |rating| rating =~ /.*:.*/ }
@@ -34,6 +34,11 @@ class RatingPredictor
     users_ratings
   end
 
+  def get_similar_users_based_on(user, user_movie_ratings, other_users)
+    cluster_engine = ClusterEngine.new(user, user_movie_ratings, other_users)
+    cluster_engine.similar_users
+  end
+
   def extract_user_id_and_rating_value(user_rating_file_and_rating_info)
     rating_filepath = user_rating_file_and_rating_info.split(":")[0]
     rate_value      = user_rating_file_and_rating_info.split(":")[2].to_i
@@ -43,6 +48,9 @@ class RatingPredictor
   end
 end
 
-print RatingPredictor.new.movies_rated_by_user("1003353")
+#users_ratings = RatingPredictor.new.users_ratings_for_movie("0008387")
+#print users_ratings.take(10)
+print RatingPredictor.new.movie_ratings_by_user("1003353")
 puts
 # "0008387"
+# "1003353"
