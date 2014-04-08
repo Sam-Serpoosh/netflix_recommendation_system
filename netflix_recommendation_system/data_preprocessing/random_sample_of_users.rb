@@ -4,7 +4,7 @@ class UserRandomSampler
   end
 
   # Random Sampling Without Replacement
-  def random_sample_of_size(size=10000)
+  def random_sample_of_size(size=2027)
     ids = File.open(@user_ids_file, "r").read.split("\n")
     random_sample_ids = []
     size.times do
