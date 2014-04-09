@@ -1,25 +1,5 @@
 # Mac files
 .DS_Store
 
-# Vim files
+# Vim Swap files
 *.swp
-
-# Dataset files
-netflix_dataset/
-sample_netflix_dataset/users
-sample_netflix_dataset/movie_ids
-sample_netflix_dataset/movies1000
-sample_netflix_dataset/movies2000
-sample_netflix_dataset/movies
-sample_netflix_dataset/user_ratings_1000
-sample_netflix_dataset/user_ratings_2000
-sample_netflix_dataset/user_ratings
-sample_netflix_dataset/test_user_ratings
-netflix_recommendation_system/test_training_set/
-data_processing/data_preprocessing/unique_user_ids
-data_processing/data_preprocessing/time_information
-recommender/sample_similarity_calculation_result
-
-# Papers and Articles
-notes/
-papers_articles/
