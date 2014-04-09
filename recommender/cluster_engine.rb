@@ -40,15 +40,3 @@ class ClusterEngine
     Math.sqrt(sum)
   end
 end
-
-user_movie_ratings = {
-  "0008387" => 3, "0009049" => 4, 
-  "0010042" => 5, "0011283" => 5, 
-  "0012084" => 4, "0016139" => 3
-}
-
-if __FILE__ == $0
-  engine = ClusterEngine.new("1003353", user_movie_ratings, ["1003353", "1021494"])
-  print engine.similar_users
-  puts
-end
