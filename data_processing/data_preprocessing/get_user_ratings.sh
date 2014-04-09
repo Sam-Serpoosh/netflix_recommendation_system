@@ -12,8 +12,8 @@ function get_user_ratings_for_user() {
 
 function append_to_user_movie_ratings() {
   while read movie_and_rating; do
-    movie+=$(echo $movie_and_rating | cut -d ':' -f1)
-    rating+=$(echo $movie_and_rating | cut -d ':' -f2)
+    movie=$(echo $movie_and_rating | cut -d ':' -f1)
+    rating=$(echo $movie_and_rating | cut -d ':' -f2)
   done
 
   if [[ ! -z $movie ]] || [[ ! -z $rating ]];
