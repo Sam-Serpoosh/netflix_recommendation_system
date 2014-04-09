@@ -13,8 +13,9 @@ class ClusterEngine
       movies_ratings = get_movie_ratings_of_user(user)
       user_distances[user] = euclidean_distance_of_users_based_on_ratings(movies_ratings)
     end
-    user_distances
-    # decide which half to return out of the distances as similar
+    sorted_user_distances = user_distances.sort_by { |key, value| value }
+    users = sorted_user_distances.map { |user_distance| user_distance[0] }
+    users[0..(users.count / 2)]
   end
 
   def get_movie_ratings_of_user(user)
