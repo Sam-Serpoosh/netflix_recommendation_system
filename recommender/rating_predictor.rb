@@ -1,3 +1,5 @@
+require_relative "./cluster_engine"
+
 class RatingPredictor
   def initialize
     @user_ratings_dir = "../sample_netflix_dataset/user_ratings/"
@@ -9,6 +11,7 @@ class RatingPredictor
     user_movie_ratings = movie_ratings_by_user(user)
     users_ratings = users_ratings_for_movie(movie)
     similar_users = get_similar_users_based_on(user, user_movie_ratings, users_ratings.keys)
+    similar_users
   end
 
   def movie_ratings_by_user(user)
@@ -48,9 +51,7 @@ class RatingPredictor
   end
 end
 
-#users_ratings = RatingPredictor.new.users_ratings_for_movie("0008387")
-#print users_ratings.take(10)
-print RatingPredictor.new.movie_ratings_by_user("1003353")
-puts
-# "0008387"
-# "1003353"
+if __FILE__ == $0
+  print RatingPredictor.new.predict("1003353", "0008387")
+  puts
+end
