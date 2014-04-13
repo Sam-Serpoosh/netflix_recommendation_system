@@ -12,9 +12,7 @@ class ClusterEngine
       movies_ratings = get_movie_ratings_of_user(user)
       user_distances[user] = euclidean_distance_of_users_based_on_ratings(movies_ratings)
     end
-    sorted_user_distances = user_distances.sort_by { |key, value| value }
-    users = sorted_user_distances.map { |user_distance| user_distance[0] }
-    users[0..(users.count / 2)]
+    get_closer_half_users(user_distances)
   end
 
   def get_movie_ratings_of_user(user)
@@ -34,5 +32,11 @@ class ClusterEngine
       sum += (rate - movies_ratings[movie]).abs ** 2
     end
     Math.sqrt(sum)
+  end
+
+  def get_closer_half_users(user_distances)
+    sorted_user_distances = user_distances.sort_by { |key, value| value }
+    users = sorted_user_distances.map { |user_distance| user_distance[0] }
+    users[0..(users.count / 2)]
   end
 end
