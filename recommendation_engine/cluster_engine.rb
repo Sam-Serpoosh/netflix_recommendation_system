@@ -4,7 +4,6 @@ class ClusterEngine
     @user_movies_ratings = user_movies_ratings
     users_rated_the_movie.delete(@user)
     @other_users = users_rated_the_movie
-    @user_ratings_dir = "../sample_netflix_dataset/user_ratings/"
   end
 
   def similar_users
@@ -22,10 +21,7 @@ class ClusterEngine
     movies = @user_movies_ratings.keys
     movies_ratings = {}
     movies.each do |movie|
-      command = %Q{ grep -m 1 "\\b#{movie}:" #{@user_ratings_dir}/#{user}_ratings }
-      movie_rating = `#{command}`
-      movies_ratings[movie] = 0 if movie_rating == ""
-      movie_id, rate = movie_rating.split(":")[0], movie_rating.split(":")[1].to_i
+      movie_id, rate = DataExtractor.user_rating_for_movie(user, movie)
       movies_ratings[movie_id] = rate
     end
     movies_ratings.reject { |movie, rate| movie.nil? }
