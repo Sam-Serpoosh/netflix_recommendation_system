@@ -21,7 +21,7 @@ describe MovieRatingPredictor do
     end
   end
 
-  context ".calculate_predicted_rating" do
+  context ".calculate_predicted_rating_from_cluster" do
     let(:users_ratings) do
       {
         "user1" => 2,
@@ -34,7 +34,7 @@ describe MovieRatingPredictor do
 
     it "calculates predicted rating based on given user ratings" do
       predicted_rating = subject.
-        calculate_predicted_rating(users_ratings, similar_users)
+        calculate_predicted_rating_from_cluster(users_ratings, similar_users)
       predicted_rating.should == 1.5
     end
   end

@@ -25,8 +25,8 @@ class PearsonCorrelationCoefficientCalculator
     user_movie_ratings, other_user_movie_ratings = get_common_movie_ratings(
       common_movies, other_user_all_movie_ratings) 
     @other_users_ratings_means[user] = calculate_mean_of_rating(other_user_all_movie_ratings)
-    numerator(user_movie_ratings, other_user_movie_ratings, user) / 
-      denominator(user_movie_ratings, other_user_movie_ratings, user)
+    numerator(user_movie_ratings, other_user_movie_ratings, @other_users_ratings_means[user]) / 
+      denominator(user_movie_ratings, other_user_movie_ratings, @other_users_ratings_means[user])
   end
 
   def get_movie_ratings_of_user(user)
@@ -57,8 +57,7 @@ class PearsonCorrelationCoefficientCalculator
     return user_movie_ratings, other_user_movie_ratings
   end
 
-  def numerator(user_movie_ratings, other_user_movie_ratings, other_user)
-    other_user_rating_mean = @other_users_ratings_means[other_user]
+  def numerator(user_movie_ratings, other_user_movie_ratings, other_user_rating_mean)
     sum = 0
     user_movie_ratings.each do |movie, rate|
       sum += (rate - @user_ratings_mean) * (other_user_movie_ratings[movie] - other_user_rating_mean)
@@ -66,8 +65,7 @@ class PearsonCorrelationCoefficientCalculator
     sum
   end
 
-  def denominator(user_movie_ratings, other_user_movie_ratings, other_user)
-    other_user_rating_mean = @other_users_ratings_means[other_user]
+  def denominator(user_movie_ratings, other_user_movie_ratings, other_user_rating_mean)
     sum_squared_for_user, sum_squared_for_other_user = 0, 0
     user_movie_ratings.each do |movie, rate|
       sum_squared_for_user       += (rate - @user_ratings_mean) ** 2
