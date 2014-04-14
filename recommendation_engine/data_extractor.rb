@@ -4,11 +4,8 @@ class DataExtractor
   def self.user_rating_for_movie(user, movie)
     command = %Q{ grep -m 1 "\\b#{movie}:" #{USER_RATINGS}#{user}_ratings }
     movie_rating = `#{command}`
-    if movie_rating == ""
-      return movie, 0
-    else
-      return movie_rating.split(":")[0], movie_rating.split(":")[1].to_i
-    end
+    return movie, 0 if movie_rating == ""
+    return movie_rating.split(":")[0], movie_rating.split(":")[1].to_i
   end
 
   def self.movies_rated_by_user(user)
