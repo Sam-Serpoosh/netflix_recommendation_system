@@ -18,7 +18,7 @@ function append_to_user_movie_ratings() {
 
   if [[ ! -z $movie ]] || [[ ! -z $rating ]];
   then
-    movie=$(echo $movie | cut -d '/' -f5 | cut -d '.' -f1 | sed 's/mv_\(.*\)/\1/')
+    movie=$(echo $movie | cut -d '/' -f4 | cut -d '.' -f1 | sed 's/mv_\(.*\)/\1/')
     rating=$(echo $rating | cut -d ',' -f2)
 
     echo "$movie:$rating" >> $user_ratings_dir$1\_ratings

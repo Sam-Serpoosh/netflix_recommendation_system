@@ -1,6 +1,6 @@
 #!/bin/bash
 
-training_set="../../netflix_dataset/training_set/"
+training_set="../netflix_dataset/training_set/"
 user_ids="./user_ids"
 unique_user_ids="./unique_user_ids"
 
