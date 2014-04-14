@@ -1,6 +1,7 @@
 require_relative "../recommendation_engine/movie_rating_predictor"
 
 describe MovieRatingPredictor do
+  # DataExtractor has been Mocked here!
   context ".other_movie_ratings_by_user" do
     it "fills info of movie ratings by given user" do
       movie_ratings = subject.other_movie_ratings_by_user(double, "movie10")
