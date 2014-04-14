@@ -5,7 +5,8 @@ class MovieRatingPredictor
   def predict_movie_rate_for_user(user, movie)
     user_movie_ratings = movie_ratings_by_user(user)
     users_ratings = users_ratings_for_movie(movie)
-    similar_users = get_similar_users_based_on(user, user_movie_ratings, users_ratings.keys)
+    similar_users = get_similar_users_based_on_ratings(
+      user, user_movie_ratings, users_ratings.keys)
     calculate_predicted_rating(users_ratings, similar_users)
   end
 
@@ -25,7 +26,7 @@ class MovieRatingPredictor
     users_ratings
   end
 
-  def get_similar_users_based_on(user, user_movie_ratings, other_users)
+  def get_similar_users_based_on_ratings(user, user_movie_ratings, other_users)
     cluster_engine = ClusterEngine.new(user, user_movie_ratings, other_users)
     cluster_engine.similar_users
   end
@@ -38,8 +39,8 @@ class MovieRatingPredictor
 end
 
 if __FILE__ == $0
-  print MovieRatingPredictor.new.predict_movie_rate_for_user("1003353", "0008387")
-  puts
+  puts MovieRatingPredictor.new.
+    predict_movie_rate_for_user("1003353", "0008387")
 end
 
 #0008387
