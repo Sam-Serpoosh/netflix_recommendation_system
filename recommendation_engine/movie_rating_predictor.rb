@@ -3,19 +3,19 @@ require_relative "./data_extractor"
 
 class MovieRatingPredictor
   def predict_movie_rate_for_user(user, movie)
-    user_movie_ratings = movie_ratings_by_user(user)
+    user_movie_ratings = other_movie_ratings_by_user(user, movie)
     users_ratings = users_ratings_for_movie(movie)
     similar_users = get_similar_users_based_on_ratings(
       user, user_movie_ratings, users_ratings.keys)
     calculate_predicted_rating(users_ratings, similar_users)
   end
 
-  def movie_ratings_by_user(user)
+  def other_movie_ratings_by_user(user, movie)
     movies_ratings = {}
     DataExtractor.movies_rated_by_user(user) do |movie, rate|
       movies_ratings[movie] = rate
     end
-    movies_ratings
+    movies_ratings.reject { |movie_id, rate| movie_id == movie }
   end
 
   def users_ratings_for_movie(movie)
@@ -38,15 +38,11 @@ class MovieRatingPredictor
   end
 end
 
+movies = ["0008387", "0009049", "0010042", "0011283", "0012084", "0016139"]
+
 if __FILE__ == $0
-  puts MovieRatingPredictor.new.
-    predict_movie_rate_for_user("1003353", "0008387")
+  movies.each do |movie|
+    puts MovieRatingPredictor.new.
+      predict_movie_rate_for_user("1003353", movie)
+  end
 end
-
-#0008387
-#0009049
-#0010042
-#0011283
-#0012084
-#0016139
-
