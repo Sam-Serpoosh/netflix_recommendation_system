@@ -29,7 +29,7 @@ class MovieRatingPredictorByPearsonCorrelation < MovieRatingPredictor
       sum += weight * (other_users_ratings[user] - user_ratings_mean)
     end
     total_weight = weights.values.inject(0) { |sum, w| sum += w }
-    sum / total_weight
+    total_weight == 0 ? 0 : sum / total_weight
   end
 end
 
