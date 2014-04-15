@@ -1,9 +1,8 @@
 class ClusterEngine
-  def initialize(user, user_movies_ratings, users_rated_the_movie)
+  def initialize(user, user_movies_ratings, other_users_rated_the_movie)
     @user = user
     @user_movies_ratings = user_movies_ratings
-    users_rated_the_movie.delete(@user)
-    @other_users = users_rated_the_movie
+    @other_users = other_users_rated_the_movie
   end
 
   def similar_users
@@ -28,7 +27,8 @@ class ClusterEngine
   def euclidean_distance_of_users_based_on_ratings(movies_ratings)
     sum = 0
     @user_movies_ratings.each do |movie, rate|
-      next if rate == 0 || movies_ratings[movie] == 0
+      next if rate == 0 || !movies_ratings.has_key?(movie) || 
+        movies_ratings[movie] == 0
       sum += (rate - movies_ratings[movie]).abs ** 2
     end
     Math.sqrt(sum)
