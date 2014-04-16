@@ -1,6 +1,6 @@
 ## Netflix Movie Recommendation System (Netflix Prize)
 
-This is a movie recommendation system based on **Netflix Prize** contest and the dataset published by Netflix about how users rated different movies in a certain period of time. You can read more about the contest at [this Wikipedia Entry](http://en.wikipedia.org/wiki/Netflix_Prize) about it. Some information about the data:
+This is a movie recommendation system based on **Netflix Prize** contest and the dataset published by Netflix about how users rated different movies in a certain period of time. You can read more about the contest at [this Wikipedia Entry](http://en.wikipedia.org/wiki/Netflix_Prize). Some information about the data:
 
 ```
 - Number of users:   480,189
@@ -21,7 +21,7 @@ Training Data Set is distributed over **17,770** files, *one* for each *movie* a
 			
 ```
 
-In this implementation the date of the rating was **not** considered. That of course is a valuable piece of information but for simplicity purposes, we used a ``dimensionality reduciton`` on this and did not consider that dimension of the dataset.
+In this implementation the date of the rating was **not** considered. That of course is a valuable piece of information but for simplicity purposes, we used a ``dimensionality reduciton`` on this and did not consider that dimension of the dataset. Note that at the time of the Netflix Prize Contest, **Cinematch** -Netflix' recommendation engine- did **NOT** use date of rating either, we don't know whehter they use that information now or not! 
 
 **Three** different approaches used for predicting a movie rating by a given user. We will discuss these different approaches and compare them to each other in the following sections. But before that, a little on the data preprocessing phase and what kinds of information has been extracted out of the original data set.
 
@@ -123,14 +123,49 @@ Actual Ratign     3   |     4     |      5    |     5     |     4     |     3
 
 ### Some thoughts on the Test Results
 
-- According to several tests on different users and movies it looks like most of the times the Clustering approach is acting better than the other two. 
+- According to several tests on different users and movies, it looks like in different scenarios (user, movies, other candidate users in each situation, etc.) different approaches acted differently. In some cases *Clustering* did better and in some other cases *Pearson Correlation Coefficient* and so on. In the test cases we ran, **Clustering** mostly did a decent job.
 
-- The average in this context is not acting good since majority of the ratings by this approach is predicted around 3.5 or something close to that value which is either *average of ratings by the user under prediction* or *average of other user's ratings for the movie under prediction*!
+- The average in this context is not acting very good since majority of the ratings by this approach is predicted around 3.5 or something close to that value which is either *average of ratings by the user under prediction for other movies* or *average of other user's ratings for the movie under prediction*!
 
-- One other important thing to consider is that, we did a random sampling in clustering and pearson correlation coefficient appraoches! The data we're dealing with have the potential of not being a very good set for our approaches. For instance in case of one user PCC acted very poorly and further investigation showed that a lot of the candidate users have a very small subset in common with the user under prediction and that can highly affect the calculation of weights between users which will of course affects the result of movie rating prediction in this algorithm.
+- One other important thing to consider is that, we did a random sampling in clustering and pearson correlation coefficient appraoches! The data we're dealing with have the potential of not being a very good set for our approaches specially in some cases when a particular user did not rate many movies or other users did not rate a movie the user under prediction rated or the like sitations. For instance in case of one user PCC acted very poorly and further investigation showed that a lot of the candidate users have a very small subset in common with the user under prediction and that can highly affect the calculation of weights between users which will of course affect the result of movie rating prediction in this algorithm.
+- The evaluation was done by calculating *RMSE (Root Mean Squared Error)* for each approach based on its predictions and actual ratings of the user and you can see some of those RMSEs in the following table:
+
+```
+User: 725544 
+Movies: 
+	'Miss Congeniality', 'Agent Cody Banks 2', 
+	'Maid in Manhattan', 'Double Jeoparday', 
+	'Legally Blonde'
+
+RMSE Values
+Clustering									  |  0.642455650814589
+Pearson Correlation Coefficient	    		  |  1.7610623698519767
+Averaging Other User's Ratings For the Movie  |  * 0.6200467226186842 *
+============================================================================
+User: 1003353
+Movies: 
+	'Minority Report', 'Boogie Nights', 
+	'Raiders of the Lost Ark', 'Forrest Gump', 
+	'Adaptation', 'Father of the Bride'
+
+RMSE Values
+Clustering							   | * 0.6026199215968864 *
+Pearson Correlation Coefficient		   | 0.7738239443797152
+Averaging Other Movie Raitngs By User  | 0.9740588418376253
+============================================================================
+User 2577095
+Movies:
+	'About a Boy', 'Black Hawk Down', 
+	'Groundhog Day', 'Forrest Gump'
+RMSE Values
+Clustering						  | 0.6936692090808817
+Pearson Correlation Coefficient	  | * 0.6767672220290791 *
+```
+
+
 
 ### Working with HUGE Data
 
-- Working with this kind of data on single machien is **IMPOSSIBLE** (in practicla temrs)
-- You need to parallelize the process for the data preprocessing and also algorithms
-- Hadoop to the rescue (Don't have to be worried about Network, File Permission, File System Related Details and Operations, etc. Focus on the main problem at hand)
+- Working with this kind of data on a single machien is **IMPOSSIBLE** (in practicla temrs)
+- You need to parallelize the process for the data preprocessing and also algorithms execution.
+- Hadoop to the rescue (You don't have to be worried about Network, File Permission, File System Related Details and Operations, etc. Focus on the main problem at hand and run your tasks in parallel on different nodes of multiple clusters with linear scalability)
