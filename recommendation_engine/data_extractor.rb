@@ -37,7 +37,7 @@ class DataExtractor
 
   def self.extract_movie_id_and_rate(user_movie_rating)
     filepath, rating_info = user_movie_rating.split(":")
-    movie_id = filepath.split("/")[3].gsub("/mv_/", "").gsub(/\.txt/, "")
+    movie_id = filepath.split("/")[3].gsub(/mv_/, "").gsub(/\.txt/, "")
     rate = rating_info.split(",")[1].to_i
     return movie_id, rate
   end
