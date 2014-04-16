@@ -24,4 +24,6 @@ class MovieRatingPredictorByAverage
   end
 end
 
-print MovieRatingPredictorByAverage.new.get_other_users_ratings_for_movie("0000010", "699878")
+if __FILE__ == $0
+  print MovieRatingPredictorByAverage.new.get_other_users_ratings_for_movie("0000010", "699878").take(10)
+end
