@@ -18,6 +18,15 @@ Predicted Rating By Pearson Correlation Coefficient:
   0012084 => 3.634896164715297
   0016139 => 4.196838492385914
 
+Predicted Rating By Averaging Other movie ratings by User:
+
+  0008387 => 3.5238095238095237
+  0009049 => 3.5
+  0010042 => 3.4761904761904763
+  0011283 => 3.4761904761904763
+  0012084 => 3.5
+  0016139 => 3.5238095238095237
+
 Actual Rating:
 
   0008387 => 3
