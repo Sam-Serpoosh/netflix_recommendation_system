@@ -1,6 +1,6 @@
 ## Netflix Movie Recommendation System (Netflix Prize)
 
-This is a movie recommendation system based on **Netflix Prize** contest and the dataset published by Netflix about how users rated different movies in a certain period of time. Some information about the data:
+This is a movie recommendation system based on **Netflix Prize** contest and the dataset published by Netflix about how users rated different movies in a certain period of time. You can read more about the contest at [this Wikipedia Entry](http://en.wikipedia.org/wiki/Netflix_Prize) about it. Some information about the data:
 
 ```
 - Number of users:   480,189
