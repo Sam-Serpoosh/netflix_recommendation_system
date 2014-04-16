@@ -10,6 +10,16 @@ class DataExtractor
       yield movie, rate
     end
   end
+
+  def self.users_ratings_for_movie(movie)
+    movie_rating_file = "mv_#{movie}.txt"
+    command = %Q{ tail -n+2 #{ALL_MOVIE_RATINGS}#{movie_rating_file} }
+    users_ratings = `#{command}`.split("\n")
+    users_ratings.each do |rating_info|
+      user_id, rate = rating_info.split(",")[0], rating_info.split(",")[1].to_i
+      yield user_id, rate
+    end
+  end
   
   def self.user_rating_for_movie(user, movie)
     command = %Q{ grep -m 1 "\\b#{movie}:" #{USER_RATINGS}#{user}_ratings }
