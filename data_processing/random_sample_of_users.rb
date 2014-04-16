@@ -22,5 +22,7 @@ class UserRandomSampler
   end
 end
 
-user_random_sampler = UserRandomSampler.new("./unique_user_ids")
-user_random_sampler.output_random_sample_ids_to_file("./random_sample_users")
+if __FILE__ == $0
+  user_random_sampler = UserRandomSampler.new("./unique_user_ids")
+  user_random_sampler.output_random_sample_ids_to_file("./random_sample_users")
+end

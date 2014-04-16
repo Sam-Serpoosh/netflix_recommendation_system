@@ -22,5 +22,7 @@ class MovieRandomSampler
   end
 end
 
-movie_random_sampler = MovieRandomSampler.new("../../netflix_dataset/training_set")
-movie_random_sampler.output_random_sample_movies_to_file("../../sample_netflix_dataset/random_movies")
+if __FILE__ == $0
+  movie_random_sampler = MovieRandomSampler.new("../../netflix_dataset/training_set")
+  movie_random_sampler.output_random_sample_movies_to_file("../../sample_netflix_dataset/random_movies")
+end
