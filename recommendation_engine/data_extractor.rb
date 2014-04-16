@@ -1,5 +1,15 @@
 class DataExtractor
   USER_RATINGS = "../sample_netflix_dataset/user_ratings/"
+  ALL_MOVIE_RATINGS = "../netflix_dataset/training_set/"
+
+  def self.movie_ratings_by_user(user)
+    command = %Q{ls #{ALL_MOVIE_RATINGS} | while read movie_ratings; do grep -m 1 "\\b#{user}," #{ALL_MOVIE_RATINGS}$movie_ratings /dev/null; done}
+    user_movie_ratings = `#{command}`.split("\n")
+    user_movie_ratings.each do |user_movie_rating|
+      movie, rate = extract_movie_id_and_rate(user_movie_rating)
+      yield movie, rate
+    end
+  end
   
   def self.user_rating_for_movie(user, movie)
     command = %Q{ grep -m 1 "\\b#{movie}:" #{USER_RATINGS}#{user}_ratings }
@@ -23,6 +33,13 @@ class DataExtractor
       user_id, rate = extract_user_id_and_rating_value(rating_info)
       yield user_id, rate
     end
+  end
+
+  def self.extract_movie_id_and_rate(user_movie_rating)
+    filepath, rating_info = user_movie_rating.split(":")
+    movie_id = filepath.split("/")[3].gsub("/mv_/", "").gsub(/\.txt/, "")
+    rate = rating_info.split(",")[1].to_i
+    return movie_id, rate
   end
 
   def self.extract_user_id_and_rating_value(user_rating_file_and_rating_info)
