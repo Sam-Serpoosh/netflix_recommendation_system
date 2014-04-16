@@ -3,8 +3,8 @@ require_relative "./data_extractor"
 class MovieRatingPredictorByAverage
   def predict_movie_rating_for_user(user, movie)
     other_movie_ratings = get_other_movie_ratings_by_user(user, movie)
-    other_users_ratings = get_other_users_ratings_for_movie(movie)
-    # average of some kind
+    other_users_ratings = get_other_users_ratings_for_movie(movie, user)
+    other_movie_ratings.values.inject(0) { |sum, rate| sum += rate } / other_movie_ratings.count.to_f
   end
 
   def get_other_movie_ratings_by_user(user, movie)
@@ -22,8 +22,4 @@ class MovieRatingPredictorByAverage
     end
     user_ratings
   end
-end
-
-if __FILE__ == $0
-  print MovieRatingPredictorByAverage.new.get_other_users_ratings_for_movie("0000010", "699878").take(10)
 end
