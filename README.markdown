@@ -166,6 +166,6 @@ Pearson Correlation Coefficient	  | * 0.6767672220290791 *
 
 ### Working with HUGE Data
 
-- Working with this kind of data on a single machien is **IMPOSSIBLE** (in practicla temrs)
+- Working with this kind of data on a single machien is **IMPOSSIBLE** (in practical terms)
 - You need to parallelize the process for the data preprocessing and also algorithms execution.
 - Hadoop to the rescue (You don't have to be worried about Network, File Permission, File System Related Details and Operations, etc. Focus on the main problem at hand and run your tasks in parallel on different nodes of multiple clusters with linear scalability)
